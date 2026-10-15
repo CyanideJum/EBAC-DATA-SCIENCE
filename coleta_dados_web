@@ -1,0 +1,24 @@
+import requests
+from bs4 import BeautifulSoup
+
+url = "https://www.python.org.br/web"
+resposta = requests.get(url, timeout=10)
+resposta.raise_for_status()
+
+soup = BeautifulSoup(resposta.text, "html.parser")
+
+linha_texto = soup.find_all(["h2", "p"])
+
+print("Linhas de texto:")
+for linha in linha_texto:  
+    if linha.name == "h2":
+        print(f"\n{linha.get_text(strip=True).upper()}")
+    elif linha.name == "p":
+        print(f"\n{linha.get_text(strip=True)}")
+
+# print("Quantidade de títulos:", len(titulos))
+# print("Quantidade de parágrafos:", len(paragrafos))
+
+
+
+

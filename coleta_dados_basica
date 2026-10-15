@@ -1,0 +1,22 @@
+from io import StringIO
+
+import pandas as pd
+import requests
+from bs4 import BeautifulSoup
+
+url = "https://maisretorno.com/indice/ibov"
+response = requests.get(url, timeout=30)
+response.raise_for_status()
+
+print("Requests:")
+print(f"Status HTTP: {response.status_code}")
+
+print("\nBeautifulSoup:")
+soup = BeautifulSoup(response.text, "html.parser")
+titulo = soup.title.get_text(strip=True) if soup.title else "Título não encontrado"
+print(f"Título da página: {titulo}")
+
+print("\nPandas:")
+tabelas = pd.read_html(StringIO(response.text))
+tabela_ibov = tabelas[0]
+print(tabela_ibov.head(10))

@@ -1,0 +1,18 @@
+import pandas as pd
+
+#função para calcular o cubo de um número
+
+def elevado_ao_cubo(x):
+    return x ** 3
+
+# função lambda para calcular o cubo de um número
+elevado_ao_cubo_lambda = lambda x: x ** 3
+
+print(elevado_ao_cubo(3))  # Saída: 27
+print(elevado_ao_cubo_lambda(3))  # Saída: 27
+
+df = pd.DataFrame({'numeros': [1, 2, 3, 4, 5, 10]})
+
+df['cubo'] = df['numeros'].apply(elevado_ao_cubo)
+df['cubo_lambda'] = df['numeros'].apply(elevado_ao_cubo_lambda)
+print(df)
